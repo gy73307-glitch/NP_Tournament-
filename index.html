@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[NP_TOURNAMENT] - India's Ultimate Esports Arena</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <style>
+        :root {
+            --primary-bg: #0F172A;
+            --secondary-bg: #1E293B;
+            --text-primary: #E2E8F0;
+            --text-secondary: #94A3B8;
+            --accent-color: #FACC15;
+            --border-color: #334155;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* General & Utility Classes */
+        .text-primary-color { color: var(--text-primary); }
+        .text-secondary-color { color: var(--text-secondary); }
+        .bg-primary-color { background-color: var(--primary-bg); }
+        .bg-secondary-color { background-color: var(--secondary-bg); }
+        .text-accent { color: var(--accent-color); }
+        .btn-accent {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            font-weight: 700;
+            border: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .btn-accent:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(250, 204, 21, 0.4);
+        }
+        .btn-outline-accent {
+            color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+        .btn-outline-accent:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+        }
+        .rounded-circle-100 {
+            border-radius: 50% !important;
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border: 2px solid var(--border-color);
+        }
+        .img-rounded-circle {
+            border-radius: 50% !important;
+        }
+        
+        .section-padding { padding: 80px 0; }
+        .container {
+            max-width: 1200px;
+        }
+
+        /* Header/Navbar */
+        .navbar-custom {
+            background-color: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1030;
+            transition: background-color 0.3s ease;
+        }
+        .navbar-brand img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            margin-right: 10px;
+        }
+        .navbar-nav .nav-link, .dropdown-item {
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        .navbar-nav .nav-link:hover, .dropdown-item:hover, .dropdown-item:focus {
+            color: var(--text-primary);
+            background-color: transparent;
+        }
+        .dropdown-menu {
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+        }
+        .dropdown-divider {
+            border-color: var(--border-color);
+        }
+        .navbar-toggler-icon {
+            filter: invert(1);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding-top: 150px;
+            padding-bottom: 80px;
+            text-align: center;
+            position: relative;
+        }
+        .hero-section h1 {
+            font-weight: 800;
+            font-size: 3rem;
+        }
+        .hero-section .lead {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--text-secondary);
+        }
+        .hero-buttons .btn {
+            min-width: 250px;
+            font-size: 1.1rem;
+            padding: 12px 24px;
+        }
+        .hero-image {
+            width: 250px;
+            margin-top: 40px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Game Slider Section */
+        .swiper {
+            width: 100%;
+            height: auto;
+            padding: 20px 0;
+        }
+        .swiper-slide {
+            width: 150px;
+            text-align: center;
+        }
+        .swiper-slide img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+        .swiper-slide img:hover {
+            transform: scale(1.05);
+        }
+        
+        /* How It Works Section */
+        .step-card {
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .step-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+        .step-number {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 8rem;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.05);
+            line-height: 1;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .step-card .bi {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+        .step-card h5 {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Features Section */
+        .feature-item {
+            text-align: center;
+        }
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+        .feature-item h5 {
+            font-weight: 600;
+        }
+        
+        /* FAQ Section */
+        .accordion-item {
+            background-color: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            margin-bottom: 10px;
+        }
+        .accordion-button {
+            background-color: var(--secondary-bg);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        .accordion-button:not(.collapsed) {
+            color: var(--accent-color);
+            background-color: var(--secondary-bg);
+            box-shadow: none;
+        }
+        .accordion-body {
+            color: var(--text-secondary);
+        }
+        .accordion-button:focus {
+            box-shadow: none;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        /* Sticky Download Bar (Mobile Only) */
+        .sticky-download-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--secondary-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 10px 15px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+        }
+        @media (max-width: 767px) {
+            .sticky-download-bar {
+                display: block;
+            }
+            .hero-section {
+                padding-top: 120px;
+            }
+            .hero-section h1 {
+                font-size: 2.2rem;
+            }
+            .hero-image {
+                width: 200px;
+            }
+            .hero-buttons .btn {
+                width: 100%;
+                min-width: unset;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Modal Overrides */
+        .modal-content {
+            background-color: var(--secondary-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        .modal-header {
+            border-bottom: 1px solid var(--border-color);
+        }
+        .modal-footer {
+            border-top: 1px solid var(--border-color);
+        }
+        .modal-title {
+            color: var(--accent-color);
+        }
+        .btn-close {
+            filter: invert(1);
+        }
+        .modal-body p {
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#main-navbar" data-bs-smooth-scroll="true" tabindex="0">
+
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-dark fixed-top navbar-custom">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#home">
+                <img src="https://i.ibb.co/fdYZnFbZ/undefined-Got-it-Since-your.png" alt="[NP_TOURNAMENT] Logo" class="img-rounded-circle">
+                <span class="ms-2 fw-bold">[NP_TOURNAMENT]</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#how-it-works">How to Play</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            More
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#faq">FAQ</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms & Conditions</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#fairPlayModal">Fair Play Policy</a></li>
+                            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#refundModal">Refund Policy</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item d-lg-block ms-lg-3">
+                        <a href="https://www.mediafire.com/file/231mlfpkmywqb8q/Np_Tournament_1.0.0.apk/file" class="btn btn-accent rounded-pill px-4" target="_blank">Download App</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main data-bs-spy="scroll" data-bs-target="#main-navbar" data-bs-offset="56" class="scrollspy-example" tabindex="0">
+
+    <section id="home" class="hero-section text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <h1 class="mb-3 fw-bold fade-in-up">India's Ultimate <span class="text-accent">Esports Arena</span> is Here</h1>
+                    <p class="lead text-secondary-color mb-4 fade-in-up" style="animation-delay: 0.2s;">
+                        Join the most electrifying esports platform for Indian gamers. Play your favorite games, compete in massive tournaments, and win real cash prizes. The ultimate battleground awaits!
+                    </p>
+                    <div class="d-flex flex-column align-items-center justify-content-center hero-buttons fade-in-up" style="animation-delay: 0.4s;">
+                        <a href="https://www.mediafire.com/file/231mlfpkmywqb8q/Np_Tournament_1.0.0.apk/file" class="btn btn-accent btn-lg rounded-pill mb-3" target="_blank">Download & Start Playing</a>
+                        <a href="https://www.mediafire.com/file/231mlfpkmywqb8q/Np_Tournament_1.0.0.apk/file" class="btn btn-link text-white text-decoration-none" target="_blank">Get ₹10 FREE on Signup!</a>
+                    </div>
+                    <div class="mt-5 fade-in-up" style="animation-delay: 0.6s;">
+                        <img src="https://i.ibb.co/fdYZnFbZ/undefined-Got-it-Since-your.png" alt="Hero Image" class="img-fluid hero-image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    ---
+
+    <section id="tournaments" class="section-padding bg-secondary-color">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold fade-in-up">Tournaments for Your Favorite Games</h2>
+            <div class="swiper fade-in-up" style="animation-delay: 0.2s;">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="https://www.gamerji.com/img/games/BGMI.png" alt="BGMI Tournament">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://www.gamerji.com/img/games/FFM.png" alt="Free Fire MAX Tournament">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://www.gamerji.com/img/games/Pubg_New_State.png" alt="PUBG New State Tournament">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://www.gamerji.com/img/games/BGMI.png" alt="BGMI Tournament">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://www.gamerji.com/img/games/FFM.png" alt="Free Fire MAX Tournament">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="https://www.gamerji.com/img/games/Pubg_New_State.png" alt="PUBG New State Tournament">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    ---
+
+    <section id="how-it-works" class="section-padding">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold fade-in-up">How It Works</h2>
+            <div class="row text-center g-4">
+                <div class="col-md-4 fade-in-up">
+                    <div class="step-card">
+                        <span class="step-number">01</span>
+                        <i class="bi bi-phone-fill"></i>
+                        <h5 class="fw-bold">Download & Register</h5>
+                        <p class="text-secondary-color">Download the app, sign up with your details, and claim your welcome bonus instantly.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="step-card">
+                        <span class="step-number">02</span>
+                        <i class="bi bi-controller"></i>
+                        <h5 class="fw-bold">Join a Tournament</h5>
+                        <p class="text-secondary-color">Browse a wide selection of tournaments, join your favorite game, and get ready to compete.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="step-card">
+                        <span class="step-number">03</span>
+                        <i class="bi bi-trophy-fill"></i>
+                        <h5 class="fw-bold">Play, Win & Withdraw</h5>
+                        <p class="text-secondary-color">Showcase your skills, climb the leaderboards, and withdraw your winnings securely to your account.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    ---
+
+    <section id="features" class="section-padding bg-secondary-color">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold fade-in-up">Why Choose [NP_TOURNAMENT]?</h2>
+            <div class="row g-4 text-center">
+                <div class="col-md-6 col-lg-3 fade-in-up">
+                    <div class="feature-item">
+                        <i class="bi bi-shield-fill-check feature-icon"></i>
+                        <h5 class="fw-bold">100% Secure & Fair Play</h5>
+                        <p class="text-secondary-color">Our advanced anti-cheat systems ensure a level playing field for everyone, every time.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="feature-item">
+                        <i class="bi bi-wallet2 feature-icon"></i>
+                        <h5 class="fw-bold">Instant Withdrawals</h5>
+                        <p class="text-secondary-color">Get your winnings directly into your UPI or bank account with our lightning-fast withdrawal process.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="feature-item">
+                        <i class="bi bi-person-plus-fill feature-icon"></i>
+                        <h5 class="fw-bold">Generous Referral Program</h5>
+                        <p class="text-secondary-color">Invite your friends to the app and earn bonus cash for every referral that signs up and plays.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 fade-in-up" style="animation-delay: 0.6s;">
+                    <div class="feature-item">
+                        <i class="bi bi-headset feature-icon"></i>
+                        <h5 class="fw-bold">24/7 Customer Support</h5>
+                        <p class="text-secondary-color">Our dedicated support team is always available to help you with any queries or issues you may face.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    ---
+
+    <section id="faq" class="section-padding">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold fade-in-up">Frequently Asked Questions</h2>
+            <div class="accordion accordion-flush" id="faqAccordion">
+                <div class="accordion-item fade-in-up">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            Is playing on [NP_TOURNAMENT] legal in India?
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes, participating in tournaments on <span class="text-accent fw-bold">[NP_TOURNAMENT]</span> is completely legal in India. As per the Supreme Court of India's ruling, games of skill are legal and are not considered gambling. Our tournaments are skill-based, ensuring a fair and lawful experience for all players. We comply with all relevant laws and regulations.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item fade-in-up" style="animation-delay: 0.2s;">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            How do I withdraw my winnings?
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Withdrawing your winnings on <span class="text-accent fw-bold">[NP_TOURNAMENT]</span> is simple and fast. Once your winnings are credited to your in-app wallet, you can go to the "Withdraw" section, enter the desired amount, and choose your preferred withdrawal method, such as UPI or Bank Transfer. The amount will be transferred to your account instantly.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item fade-in-up" style="animation-delay: 0.4s;">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                            Are there free tournaments available?
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes, <span class="text-accent fw-bold">[NP_TOURNAMENT]</span> offers a variety of free-to-play tournaments, also known as 'Freerolls.' These tournaments allow you to participate and compete for real cash prizes without any entry fee. It's a great way to practice your skills and get a feel for the platform before joining paid tournaments.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    ---
+
+    <footer class="footer text-center">
+        <div class="container">
+            <p class="mb-1 text-primary-color">&copy; 2024 <span class="text-accent fw-bold">[NP_TOURNAMENT]</span>. All Rights Reserved.</p>
+            <p class="small text-secondary-color mb-0">Disclaimer: This app is intended for users who are 18 years or older. Our tournaments are based on skill and are not considered gambling.</p>
+        </div>
+    </footer>
+
+    <div class="sticky-download-bar d-lg-none">
+        <a href="https://www.mediafire.com/file/231mlfpkmywqb8q/Np_Tournament_1.0.0.apk/file" class="btn btn-accent rounded-pill w-100 py-3 fw-bold" target="_blank">Download & Get ₹10 Bonus</a>
+    </div>
+
+    <div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="privacyModalLabel">Privacy Policy</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>1. Introduction</h6>
+                    <p>Welcome to <span class="text-accent fw-bold">[NP_TOURNAMENT]</span>. This Privacy Policy describes how we collect, use, and share your information when you use our mobile application and services. We are committed to protecting your personal data and your right to privacy.</p>
+                    <h6>2. Information We Collect</h6>
+                    <p>We may collect information you provide directly to us, such as your name, email address, mobile number, and payment details for transactions. We also collect data related to your in-app activity, device information, and IP address to ensure a secure and personalized experience.</p>
+                    <h6>3. How We Use Your Information</h6>
+                    <p>The information we collect is used to operate and maintain our services, personalize your experience, process your transactions and withdrawals, communicate with you about your account and app updates, and to improve our services. We do not sell your personal data to third parties.</p>
+                    <h6>4. Data Security</h6>
+                    <p>We implement a variety of security measures to maintain the safety of your personal information. Your data is stored on secure servers and protected by industry-standard encryption protocols. However, no method of transmission over the Internet is 100% secure.</p>
+                    <h6>5. Third-Party Services</h6>
+                    <p>We may use third-party services for analytics, advertising, and payment processing. These services have their own privacy policies. We encourage you to review them. We are not responsible for the practices of these third parties.</p>
+                    <h6>6. Your Rights</h6>
+                    <p>You have the right to access, correct, or delete your personal information. You can also object to or restrict the processing of your data. Please contact our support team to exercise these rights.</p>
+                    <h6>7. Changes to This Policy</h6>
+                    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page. Your continued use of <span class="text-accent fw-bold">[NP_TOURNAMENT]</span> after any changes indicates your acceptance of the new policy.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termsModalLabel">Terms & Conditions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>1. Acceptance of Terms</h6>
+                    <p>By downloading, installing, or using the <span class="text-accent fw-bold">[NP_TOURNAMENT]</span> mobile application, you agree to be bound by these Terms & Conditions. If you do not agree, you may not use the app.</p>
+                    <h6>2. Eligibility</h6>
+                    <p>You must be at least 18 years old to use the <span class="text-accent fw-bold">[NP_TOURNAMENT]</span> app. By using the app, you confirm that you meet this age requirement and are a resident of a state where skill-based gaming is not prohibited.</p>
+                    <h6>3. Account Registration</h6>
+                    <p>You are responsible for maintaining the confidentiality of your account information. You agree to provide accurate, current, and complete information during registration and to update it as necessary.</p>
+                    <h6>4. Prohibited Conduct</h6>
+                    <p>You agree not to engage in any fraudulent activity, cheating, or any conduct that disrupts the integrity of the tournaments or the app. This includes using unauthorized software, bots, or exploiting bugs. Violation of this policy will result in account suspension and forfeiture of winnings.</p>
+                    <h6>5. Intellectual Property</h6>
+                    <p>All content within the <span class="text-accent fw-bold">[NP_TOURNAMENT]</span> app, including but not limited to text, graphics, logos, and software, is the property of <span class="text-accent fw-bold">[NP_TOURNAMENT]</span> and is protected by copyright and intellectual property laws.</p>
+                    <h6>6. Disclaimer of Warranties</h6>
+                    <p>The <span class="text-accent fw-bold">[NP_TOURNAMENT]</span> app is provided "as is" without any warranties, express or implied. We do not guarantee that the app will be free from errors or interruptions.</p>
+                    <h6>7. Limitation of Liability</h6>
+                    <p>In no event shall <span class="text-accent fw-bold">[NP_TOURNAMENT]</span> be liable for any indirect, incidental, special, or consequential damages arising out of your use of the app.</p>
+                    <h6>8. Governing Law</h6>
+                    <p>These Terms & Conditions shall be governed by and construed in accordance with the laws of India.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="fairPlayModal" tabindex="-1" aria-labelledby="fairPlayModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="fairPlayModalLabel">Fair Play Policy</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>1. Commitment to Fair Play</h6>
+                    <p>At <span class="text-accent fw-bold">[NP_TOURNAMENT]</span>, we are dedicated to providing a fair and secure gaming environment. This Fair Play Policy outlines the principles and rules that all users must follow to ensure integrity and competitive balance.</p>
+                    <h6>2. Prohibited Activities</h6>
+                    <p>The following activities are strictly prohibited and will result in disciplinary action, including but not limited to account suspension and permanent bans:</p>
+                    <ul>
+                        <li><strong>Cheating:</strong> Using any unauthorized third-party software, hacks, bots, or scripts to gain an unfair advantage.</li>
+                        <li><strong>Collusion:</strong> Any form of match-fixing or coordinating with other players to manipulate tournament outcomes.</li>
+                        <li><strong>Multiple Accounts:</strong> Creating or operating more than one account per user.</li>
+                        <li><strong>Exploiting Bugs:</strong> Intentionally exploiting glitches or errors in the game or app to gain an advantage.</li>
+                        <li><strong>Harassment:</strong> Abusive behavior, offensive language, or harassment towards other players or staff.</li>
+                    </ul>
+                    <h6>3. Anti-Cheat Measures</h6>
+                    <p>We employ a robust anti-cheat system to detect and prevent unfair play. Our system continuously monitors player behavior and game data. Any player found to be in violation of this policy will be subject to immediate and irreversible action.</p>
+                    <h6>4. Reporting Violations</h6>
+                    <p>We encourage our community to help us maintain a fair environment. If you suspect another player is violating this policy, please report them to our support team with all available evidence. All reports are investigated thoroughly.</p>
+                    <h6>5. Penalties</h6>
+                    <p>Violations of the Fair Play Policy may lead to:</p>
+                    <ul>
+                        <li>Immediate suspension or permanent ban from the <span class="text-accent fw-bold">[NP_TOURNAMENT]</span> platform.</li>
+                        <li>Forfeiture of all winnings and funds in the account.</li>
+                        <li>Legal action if deemed necessary.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="refundModal" tabindex="-1" aria-labelledby="refundModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="refundModalLabel">Refund & Cancellation Policy</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>1. Tournament Entry Fees</h6>
+                    <p>Tournament entry fees are generally non-refundable. Once you have successfully registered for a tournament on the <span class="text-accent fw-bold">[NP_TOURNAMENT]</span> app, the entry fee is considered final. Refunds will only be considered under specific, limited circumstances as outlined below.</p>
+                    <h6>2. Circumstances for Refund</h6>
+                    <p>A refund may be issued in the following scenarios:</p>
+                    <ul>
+                        <li><strong>Tournament Cancellation:</strong> If a tournament is canceled by <span class="text-accent fw-bold">[NP_TOURNAMENT]</span> due to unforeseen circumstances (e.g., technical issues, insufficient players), the full entry fee will be automatically refunded to your in-app wallet.</li>
+                        <li><strong>Technical Glitches:</strong> In the rare event of a technical glitch that prevents you from participating in a tournament you have paid for, a refund may be processed after a thorough investigation by our support team.</li>
+                    </ul>
+                    <h6>3. Cancellation by User</h6>
+                    <p>Users cannot cancel their registration for a tournament once the registration process is complete. We encourage all users to confirm their availability and intent to play before paying the entry fee.</p>
+                    <h6>4. How to Request a Refund</h6>
+                    <p>If you believe you are eligible for a refund under the circumstances listed above, you must contact our customer support team within 24 hours of the tournament's scheduled start time. All refund requests will be reviewed on a case-by-case basis.</p>
+                    <h6>5. Refund Processing</h6>
+                    <p>Approved refunds will be credited back to your <span class="text-accent fw-bold">[NP_TOURNAMENT]</span> in-app wallet balance. These funds can then be used to join other tournaments or be withdrawn as per our withdrawal policy.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Swiper
+            const swiper = new Swiper('.swiper', {
+                slidesPerView: 'auto',
+                spaceBetween: 20,
+                centeredSlides: true,
+                loop: true,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
+                breakpoints: {
+                    768: {
+                        slidesPerView: 4,
+                        spaceBetween: 30,
+                        centeredSlides: false
+                    }
+                }
+            });
+
+            // Intersection Observer for fade-in-up animation
+            const faders = document.querySelectorAll('.fade-in-up');
+            const appearOptions = {
+                threshold: 0.2,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('visible');
+                        appearOnScroll.unobserve(entry.target);
+                    }
+                });
+            }, appearOptions);
+
+            faders.forEach(fader => {
+                appearOnScroll.observe(fader);
+            });
+        });
+    </script>
+
+</body>
+</html>
